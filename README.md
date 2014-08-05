@@ -1,7 +1,5 @@
-[![Coverage Status](https://coveralls.io/repos/fishbrain/fishbars/badge.png?branch=master)](https://coveralls.io/r/fishbrain/fishbars?branch=master)
-
 [![Build Status](https://travis-ci.org/fishbrain/fishbars.svg?branch=master)](https://travis-ci.org/fishbrain/fishbars)
-
+[![Coverage Status](https://coveralls.io/repos/fishbrain/fishbars/badge.png?branch=master)](https://coveralls.io/r/fishbrain/fishbars?branch=master)
 
 
 # fishbars
