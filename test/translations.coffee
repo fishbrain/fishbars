@@ -21,7 +21,6 @@ describe 'fishbars', ->
       result = template(@context)
       expect(result).to.eql 'hej jakob'
 
-
     it 'can translate to english', ->
       fishbars.registerHelpers({
         handlebars: handlebars
@@ -41,3 +40,13 @@ describe 'fishbars', ->
       template = handlebars.compile(@template)
       f = => template(@context)
       expect(f).to.throw "No translation available for the language dk"
+
+    it 'throws on templating if no language is assigned', ->
+      fishbars.registerHelpers({
+        handlebars: handlebars
+      })
+
+      template = handlebars.compile(@template)
+      f = => template(@context)
+      expect(f).to.throw "No language configured"
+
