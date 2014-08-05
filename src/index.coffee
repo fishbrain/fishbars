@@ -8,6 +8,11 @@ validUnits = {
   temperature:
     C: { factor: ((x) -> x), name: 'C', fixedPoints: 0 }
     F: { factor: ((x) -> x * 9 / 5 + 32), name: 'F', fixedPoints: 0 }
+  speed:
+    'm/s': { factor: ((x) -> x), name: 'm/s', fixedPoints: 1 }
+    'km/h': { factor: ((x) -> x * 3.6), name: 'km/h', fixedPoints: 1 }
+    'mph': { factor: ((x) -> x * 2.23693629), name: 'mph', fixedPoints: 1 }
+    'kn': { factor: ((x) -> x * 1.94384449), name: 'kn', fixedPoints: 1 }
 }
 
 
