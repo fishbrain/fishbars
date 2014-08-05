@@ -33,14 +33,11 @@ test-node:
 
 test: lib test/*
 ifneq ($(CI),true)
-	# Not running CI; only testing in node and showing code coverage
 	@make test-node
 	@make test-coverage
 else ifneq ($(TRAVIS_NODE_VERSION),0.10)
-	# Running CI in a node version other than 0.10; only testing in node
 	@make test-node
 else
-	# Running CI in a node 0.10 - testing node AND coverage
 	@make test-node
 	@make test-coveralls
 endif
