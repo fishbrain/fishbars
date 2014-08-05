@@ -12,3 +12,6 @@ deploy:
     node: '0.10'
     tags: true
     repo: fishbrain/fishbars
+notifications:
+  slack:
+    secure: JrN9NMEa5xaB26jCB5iXfstYQpP1uwNjwstjHd46e6ibbfT+HkGDbljmUcYGkG7l80qibBitXsDrtp8NFbl/FTVPmDnIrk9w/GOJBPhjHJFwKd4YG2WXKQd+qzKtScqPKUC8ZFvv678OSIJ+mmrUIfrOehiQDr6AHiXBlnNN/SI=
