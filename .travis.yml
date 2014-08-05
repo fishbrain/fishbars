@@ -15,4 +15,4 @@ deploy:
     all_branches: true
 notifications:
   slack:
-    secure: JrN9NMEa5xaB26jCB5iXfstYQpP1uwNjwstjHd46e6ibbfT+HkGDbljmUcYGkG7l80qibBitXsDrtp8NFbl/FTVPmDnIrk9w/GOJBPhjHJFwKd4YG2WXKQd+qzKtScqPKUC8ZFvv678OSIJ+mmrUIfrOehiQDr6AHiXBlnNN/SI=
+    secure: I87yyikQiIKjxTTBs+wTAeF5p9siqIPAtY2LxKi26Psh5exNzd7dR54SdZq4M2lApdk9e4YBKANQLLjHJqhnatGPL7n0px0afxRgUduMQN0cBn1lTOlb/nv7p4sM5UsfgOniqBPmn6EC8U9tCus6BJL99UT4ve3yxeJ5IYDzAd0=
