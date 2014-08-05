@@ -21,7 +21,6 @@ describe 'fishbars', ->
       result = template(@context)
       expect(result).to.eql 'hej jakob'
 
-
     it 'can translate to english', ->
       fishbars.registerHelpers({
         handlebars: handlebars
