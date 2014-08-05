@@ -14,7 +14,7 @@ describe 'fishbars', ->
     it 'can convert to kilos', ->
       fishbars.registerHelpers({
         handlebars: handlebars
-        weightUnit: 'kg'
+        units: weight: 'kg'
       })
 
       template = handlebars.compile(@template)
@@ -24,7 +24,7 @@ describe 'fishbars', ->
     it 'can convert to pounds', ->
       fishbars.registerHelpers({
         handlebars: handlebars
-        weightUnit: 'lb'
+        units: weight: 'lb'
       })
 
       template = handlebars.compile(@template)
@@ -34,7 +34,7 @@ describe 'fishbars', ->
     it 'throws if an invalid unit is given', ->
       f = -> fishbars.registerHelpers({
         handlebars: handlebars
-        weightUnit: 'notaunit'
+        units: weight: 'notaunit'
       })
       expect(f).to.throw "The weight unit 'notaunit' is invalid"
 

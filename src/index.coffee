@@ -1,21 +1,24 @@
-validWeightUnits = ['kg', 'lb']
-validLengthUnits = ['m', 'ft']
+validUnits = {
+  weight:
+    kg: { factor: 1, name: 'kgs', fixedPoints: 1 }
+    lb: { factor: 2.20462262, name: 'lbs', fixedPoints: 1 }
+  length:
+    m: { factor: 1, name: 'm', fixedPoints: 2 }
+    ft: { factor: 3.2808399, name: 'ft', fixedPoints: 2 }
+}
 
-contains = (array, element) ->
-  array.indexOf(element) != -1
 
 exports.registerHelpers = ({
   handlebars
   language
-  weightUnit
-  lengthUnit
+  units
 }) ->
 
-  if weightUnit? && !contains(validWeightUnits, weightUnit)
-    throw new Error("The weight unit '#{weightUnit}' is invalid")
+  units ?= {}
 
-  if lengthUnit? && !contains(validLengthUnits, lengthUnit)
-    throw new Error("The length unit '#{lengthUnit}' is invalid")
+  Object.keys(units).forEach (unit) ->
+    if !validUnits[unit][units[unit]]?
+      throw new Error("The #{unit} unit '#{units[unit]}' is invalid")
 
   handlebars.registerHelper 'translate', (obj) ->
     if !language?
@@ -26,16 +29,9 @@ exports.registerHelpers = ({
     else
       throw new Error("No translation available for the language #{language}")
 
-  handlebars.registerHelper 'weight', (kilos) ->
-    if weightUnit == 'kg'
-      return (kilos).toFixed(1) + " kgs"
-    if weightUnit == 'lb'
-      return (kilos*2.20462262).toFixed(1) + " lbs"
-    throw new Error("No valid weight unit configured")
-
-  handlebars.registerHelper 'length', (meters) ->
-    if lengthUnit == 'm'
-      return (meters).toFixed(2) + " m"
-    if lengthUnit == 'ft'
-      return (meters*3.2808399).toFixed(2) + " ft"
-    throw new Error("No valid length unit configured")
+  ['weight', 'length'].forEach (unit) ->
+    handlebars.registerHelper unit, (amount) ->
+      conversion = validUnits[unit][units[unit]]
+      if !conversion?
+        throw new Error("No valid #{unit} unit configured")
+      return (conversion.factor * amount).toFixed(conversion.fixedPoints) + " " + conversion.name

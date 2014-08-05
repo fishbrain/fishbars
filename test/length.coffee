@@ -14,7 +14,7 @@ describe 'fishbars', ->
     it 'can convert to meters', ->
       fishbars.registerHelpers({
         handlebars: handlebars
-        lengthUnit: 'm'
+        units: length: 'm'
       })
 
       template = handlebars.compile(@template)
@@ -24,7 +24,7 @@ describe 'fishbars', ->
     it 'can convert to feet', ->
       fishbars.registerHelpers({
         handlebars: handlebars
-        lengthUnit: 'ft'
+        units: length: 'ft'
       })
 
       template = handlebars.compile(@template)
@@ -34,7 +34,7 @@ describe 'fishbars', ->
     it 'throws if an invalid unit is given', ->
       f = -> fishbars.registerHelpers({
         handlebars: handlebars
-        lengthUnit: 'notaunit'
+        units: length: 'notaunit'
       })
       expect(f).to.throw "The length unit 'notaunit' is invalid"
 
