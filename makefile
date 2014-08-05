@@ -31,7 +31,7 @@ test-coveralls: .cov
 test-node:
 	@mocha $(MOCHA_PARAMS) --reporter list
 
-test: lib
+test: lib test/*
 ifneq ($(CI),true)
 	# Not running CI; only testing in node and showing code coverage
 	@make test-node
