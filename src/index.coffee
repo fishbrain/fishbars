@@ -13,6 +13,9 @@ exports.registerHelpers = ({
     throw new Error("The weight unit '#{weightUnit}' is invalid")
 
   handlebars.registerHelper 'translate', (obj) ->
+    if !language?
+      throw new Error("No language configured")
+
     if obj[language]?
       obj[language]
     else

@@ -41,3 +41,13 @@ describe 'fishbars', ->
       template = handlebars.compile(@template)
       f = => template(@context)
       expect(f).to.throw "No translation available for the language dk"
+
+    it 'throws on templating if no language is assigned', ->
+      fishbars.registerHelpers({
+        handlebars: handlebars
+      })
+
+      template = handlebars.compile(@template)
+      f = => template(@context)
+      expect(f).to.throw "No language configured"
+
