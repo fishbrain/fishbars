@@ -32,7 +32,7 @@ exports.registerHelpers = ({
     else
       throw new Error("No translation available for the language #{language}")
 
-  ['weight', 'length', 'temperature'].forEach (unit) ->
+  Object.keys(validUnits).forEach (unit) ->
     handlebars.registerHelper unit, (amount) ->
       conversion = validUnits[unit][units[unit]]
       if !conversion?
