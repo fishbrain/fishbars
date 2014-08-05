@@ -1,0 +1,37 @@
+{
+  "name": "fishbars",
+  "version": "0.1.0",
+  "description": "Helpers for Handlebars templates used at FishBrain",
+  "author": "FishBrain <support@fishbrain.com> (http://fishbrain.com)",
+  "contributors": [
+    "Jakob Mattsson <jakob@fishbrain.com> (http://jakobm.com)"
+  ],
+  "main": "./lib/index.js",
+  "engines": {
+    "npm": ">= 1.3 < 2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/fishbrain/fishbars"
+  },
+  "files": [
+    "lib",
+    "LICENSE"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^1.1.1",
+    "coffee-script": "^1.7.0",
+    "handlebars": "^1.3.0",
+    "jscov": "^0.6.14",
+    "jsontool": "^7.0.1",
+    "mocha": "^1.20.1",
+    "mocha-term-cov-reporter": "^0.2.0"
+  },
+  "scripts": {
+    "test": "make test",
+    "prestart": "coffee -co lib src",
+    "pretest": "coffee -co lib src",
+    "prepublish": "coffee -co lib src"
+  }
+}
