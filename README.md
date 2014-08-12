@@ -16,12 +16,12 @@ Helpers for Handlebars templates used at FishBrain
 
 ### Getting started
 
-	var handlebars = require("handlebars");
-	var fishbars = require("fishbars");
+    var handlebars = require("handlebars");
+    var fishbars = require("fishbars");
 
-	fishbars.registerHelpers(handlebars, {
-	  language: 'se'
-	});
+    fishbars.registerHelpers(handlebars, {
+      language: 'se'
+    });
 
     var template = handlebars.compile("{{translate greeting}} {{name}}");
     var result = template({ name: 'jakob', greeting: { se: 'hej', en: 'hi' } });
@@ -45,13 +45,13 @@ Translate is used as in the "getting started"-example above. Given a string as `
 The remaining four functions are used to convert a number (given in SI-units) to a string representation in the configured unit, including the unit abbreviation. For example, getting my length in feet would go like this:
 
     var handlebars = require("handlebars");
-	var fishbars = require("fishbars");
+    var fishbars = require("fishbars");
 
-	fishbars.registerHelpers(handlebars, {
-	  units: {
-	    weight: 'lb'
-	  }
-	});
+    fishbars.registerHelpers(handlebars, {
+      units: {
+        weight: 'lb'
+      }
+    });
 
     var template = handlebars.compile("{{name}} is {{length myLength}} tall");
     var result = template({ name: 'jakob', myLength: 1.81 }); // note that length is given in meters
@@ -60,15 +60,15 @@ The remaining four functions are used to convert a number (given in SI-units) to
 
 The full configuration would look like this:
 
-	fishbars.registerHelpers(handlebars, {
-	  language: 'se',
-	  units: {
-	    weight: 'kg',     // or 'lb'
-	    length: 'm',      // or 'ft'
-	    temperature: 'C', // or 'F'
-	  	speed: 'm/s'      // or 'km/h' or 'mph' or 'kn'
-	  }
-	});
+    fishbars.registerHelpers(handlebars, {
+      language: 'se',
+      units: {
+        weight: 'kg',     // or 'lb'
+        length: 'm',      // or 'ft'
+        temperature: 'C', // or 'F'
+        speed: 'm/s'      // or 'km/h' or 'mph' or 'kn'
+      }
+    });
 
 
 
