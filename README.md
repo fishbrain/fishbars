@@ -23,10 +23,50 @@ Helpers for Handlebars templates used at FishBrain
 	  locale: 'se'
 	});
 
-    var template = handlebars.compile("{{translate greet}} {{name}}");
-    var result = template({ name: 'jakob', greet: { se: 'hej', en: 'hi' } });
+    var template = handlebars.compile("{{translate greeting}} {{name}}");
+    var result = template({ name: 'jakob', greeting: { se: 'hej', en: 'hi' } });
 
     console.log(result); // hej jakob
+
+
+
+### Features
+
+There are five functions:
+
+    translate
+    weight
+    length
+    temperature
+    speed
+
+Translate is used as in the "getting started"-example above. Given a string as `locale` in `registerHelpers`, that key is looked up when `translate` is called on an object in the template. You can use any language code you want to; to the function it's just a key in a lookup.
+
+The remaining four functions are used to convert a number (given in SI-units) to a string representation in the configured unit, including the unit abbreviation. For example, getting my length in feet would go like this:
+
+    var handlebars = require("handlebars");
+	var fishbars = require("fishbars");
+
+	fishbars.registerHelpers(handlebars, {
+	  units:
+	    weight: 'lb'
+	});
+
+    var template = handlebars.compile("{{name}} is {{length myLength}} tall");
+    var result = template({ name: 'jakob', myLength: 1.81 }); // note that length is given in meters
+
+    console.log(result); // Jakob is 5.94 ft tall
+
+The full configuration would look like this:
+
+	fishbars.registerHelpers(handlebars, {
+	  locale: 'se'
+	  units:
+	    weight: 'kg',     // or 'lb'
+	    length: 'm',      // or 'ft'
+	    temperature: 'C', // or 'F'
+	  	speed: 'm/s'      // or 'km/h' or 'mph' or 'kn'
+	});
 
 
 
