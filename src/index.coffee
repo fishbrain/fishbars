@@ -16,8 +16,7 @@ validUnits = {
 }
 
 
-exports.registerHelpers = ({
-  handlebars
+exports.registerHelpers = (handlebars, {
   language
   units
 }) ->

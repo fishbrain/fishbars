@@ -12,8 +12,7 @@ describe 'fishbars', ->
       @context = { name: 'jakob', greet: { se: 'hej', en: 'hi' } }
 
     it 'can translate to swedish', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
+      fishbars.registerHelpers(handlebars, {
         language: 'se'
       })
 
@@ -22,8 +21,7 @@ describe 'fishbars', ->
       expect(result).to.eql 'hej jakob'
 
     it 'can translate to english', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
+      fishbars.registerHelpers(handlebars, {
         language: 'en'
       })
 
@@ -32,8 +30,7 @@ describe 'fishbars', ->
       expect(result).to.eql 'hi jakob'
 
     it 'throws if the requested language is not available', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
+      fishbars.registerHelpers(handlebars, {
         language: 'dk'
       })
 
@@ -42,9 +39,7 @@ describe 'fishbars', ->
       expect(f).to.throw "No translation available for the language dk"
 
     it 'throws on templating if no language is assigned', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
-      })
+      fishbars.registerHelpers(handlebars, {})
 
       template = handlebars.compile(@template)
       f = => template(@context)
