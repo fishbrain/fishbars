@@ -19,9 +19,8 @@ Helpers for Handlebars templates used at FishBrain
 	var handlebars = require("handlebars");
 	var fishbars = require("fishbars");
 
-	fishbars.registerHelpers({
-	  handlebars: handlebars,
-	  language: 'se'
+	fishbars.registerHelpers(handlebars, {
+	  locale: 'se'
 	});
 
     var template = handlebars.compile("{{translate greet}} {{name}}");
