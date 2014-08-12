@@ -44,7 +44,9 @@ else
 endif
 
 release:
-ifneq "$(GIT_STATUS)" ""
+ifeq "$(VERSION)" ""
+	@echo "You have to specify a version: 'make release VERSION=x.x.x'"
+else ifneq "$(GIT_STATUS)" ""
 	@echo "clean up your changes first"
 else ifneq "$(GIT_BRANCH)" "master"
 	@echo "You can only release from the master branch"
