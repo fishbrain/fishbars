@@ -20,7 +20,7 @@ Helpers for Handlebars templates used at FishBrain
 	var fishbars = require("fishbars");
 
 	fishbars.registerHelpers(handlebars, {
-	  locale: 'se'
+	  language: 'se'
 	});
 
     var template = handlebars.compile("{{translate greeting}} {{name}}");
@@ -40,7 +40,7 @@ There are five functions:
     temperature
     speed
 
-Translate is used as in the "getting started"-example above. Given a string as `locale` in `registerHelpers`, that key is looked up when `translate` is called on an object in the template. You can use any language code you want to; to the function it's just a key in a lookup.
+Translate is used as in the "getting started"-example above. Given a string as `language` in `registerHelpers`, that key is looked up when `translate` is called on an object in the template. You can use any language code you want to; to the function it's just a key in a lookup.
 
 The remaining four functions are used to convert a number (given in SI-units) to a string representation in the configured unit, including the unit abbreviation. For example, getting my length in feet would go like this:
 
@@ -61,7 +61,7 @@ The remaining four functions are used to convert a number (given in SI-units) to
 The full configuration would look like this:
 
 	fishbars.registerHelpers(handlebars, {
-	  locale: 'se',
+	  language: 'se',
 	  units: {
 	    weight: 'kg',     // or 'lb'
 	    length: 'm',      // or 'ft'
