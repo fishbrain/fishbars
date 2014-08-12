@@ -12,8 +12,7 @@ describe 'fishbars', ->
       @context = { num: 5 }
 
     it 'can convert to m/s', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
+      fishbars.registerHelpers(handlebars, {
         units: speed: 'm/s'
       })
 
@@ -22,8 +21,7 @@ describe 'fishbars', ->
       expect(result).to.eql '5.0 m/s'
 
     it 'can convert to km/h', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
+      fishbars.registerHelpers(handlebars, {
         units: speed: 'km/h'
       })
 
@@ -32,8 +30,7 @@ describe 'fishbars', ->
       expect(result).to.eql '18.0 km/h'
 
     it 'can convert to mph', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
+      fishbars.registerHelpers(handlebars, {
         units: speed: 'mph'
       })
 
@@ -42,8 +39,7 @@ describe 'fishbars', ->
       expect(result).to.eql '11.2 mph'
 
     it 'can convert to kn', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
+      fishbars.registerHelpers(handlebars, {
         units: speed: 'kn'
       })
 
@@ -52,16 +48,13 @@ describe 'fishbars', ->
       expect(result).to.eql '9.7 kn'
 
     it 'throws if an invalid unit is given', ->
-      f = -> fishbars.registerHelpers({
-        handlebars: handlebars
+      f = -> fishbars.registerHelpers(handlebars, {
         units: speed: 'notaunit'
       })
       expect(f).to.throw "The speed unit 'notaunit' is invalid"
 
     it 'throws on templating if no unit is given', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
-      })
+      fishbars.registerHelpers(handlebars, {})
 
       template = handlebars.compile(@template)
       f = => template(@context)

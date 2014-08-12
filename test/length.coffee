@@ -12,8 +12,7 @@ describe 'fishbars', ->
       @context = { num: 5 }
 
     it 'can convert to meters', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
+      fishbars.registerHelpers(handlebars, {
         units: length: 'm'
       })
 
@@ -22,8 +21,7 @@ describe 'fishbars', ->
       expect(result).to.eql '5.00 m'
 
     it 'can convert to feet', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
+      fishbars.registerHelpers(handlebars, {
         units: length: 'ft'
       })
 
@@ -32,16 +30,13 @@ describe 'fishbars', ->
       expect(result).to.eql '16.40 ft'
 
     it 'throws if an invalid unit is given', ->
-      f = -> fishbars.registerHelpers({
-        handlebars: handlebars
+      f = -> fishbars.registerHelpers(handlebars, {
         units: length: 'notaunit'
       })
       expect(f).to.throw "The length unit 'notaunit' is invalid"
 
     it 'throws on templating if no unit is given', ->
-      fishbars.registerHelpers({
-        handlebars: handlebars
-      })
+      fishbars.registerHelpers(handlebars, {})
 
       template = handlebars.compile(@template)
       f = => template(@context)
