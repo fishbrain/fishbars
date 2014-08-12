@@ -48,8 +48,9 @@ The remaining four functions are used to convert a number (given in SI-units) to
 	var fishbars = require("fishbars");
 
 	fishbars.registerHelpers(handlebars, {
-	  units:
+	  units: {
 	    weight: 'lb'
+	  }
 	});
 
     var template = handlebars.compile("{{name}} is {{length myLength}} tall");
@@ -60,12 +61,13 @@ The remaining four functions are used to convert a number (given in SI-units) to
 The full configuration would look like this:
 
 	fishbars.registerHelpers(handlebars, {
-	  locale: 'se'
-	  units:
+	  locale: 'se',
+	  units: {
 	    weight: 'kg',     // or 'lb'
 	    length: 'm',      // or 'ft'
 	    temperature: 'C', // or 'F'
 	  	speed: 'm/s'      // or 'km/h' or 'mph' or 'kn'
+	  }
 	});
 
 
