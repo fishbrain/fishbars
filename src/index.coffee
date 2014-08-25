@@ -18,6 +18,7 @@ validUnits = {
 
 exports.registerHelpers = (handlebars, {
   language
+  country
   units
 }) ->
 
@@ -35,6 +36,16 @@ exports.registerHelpers = (handlebars, {
       obj[language]
     else
       throw new Error("No translation available for the language #{language}")
+
+  handlebars.registerHelper 'local', (obj) ->
+    if !country?
+      throw new Error("No country configured")
+
+    if obj[country]?
+      obj[country]
+    else
+      throw new Error("No translation available for the country #{country}")
+
 
   Object.keys(validUnits).forEach (unit) ->
     handlebars.registerHelper unit, (amount) ->
