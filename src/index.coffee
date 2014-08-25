@@ -23,7 +23,7 @@ translations = [
   method: 'translate'
 ]
 
-exports.registerHelpers = (handlebars, settings) ->
+exports.registerHelpers = (handlebars, settings = {}) ->
 
   units = settings.units || {}
 
