@@ -15,36 +15,32 @@ validUnits = {
     'kn': { factor: ((x) -> x * 1.94384449), name: 'kn', fixedPoints: 1 }
 }
 
+translations = [
+  key: 'country'
+  method: 'local'
+,
+  key: 'language'
+  method: 'translate'
+]
 
-exports.registerHelpers = (handlebars, {
-  language
-  country
-  units
-}) ->
+exports.registerHelpers = (handlebars, settings) ->
 
-  units ?= {}
+  units = settings.units || {}
 
   Object.keys(units).forEach (unit) ->
     if !validUnits[unit][units[unit]]?
       throw new Error("The #{unit} unit '#{units[unit]}' is invalid")
 
-  handlebars.registerHelper 'translate', (obj) ->
-    if !language?
-      throw new Error("No language configured")
+  translations.forEach ({ key, method }) ->
+    value = settings[key]
+    handlebars.registerHelper method, (obj) ->
+      if !value?
+        throw new Error("No #{key} configured")
 
-    if obj[language]?
-      obj[language]
-    else
-      throw new Error("No translation available for the language #{language}")
-
-  handlebars.registerHelper 'local', (obj) ->
-    if !country?
-      throw new Error("No country configured")
-
-    if obj[country]?
-      obj[country]
-    else
-      throw new Error("No translation available for the country #{country}")
+      if obj[value]?
+        obj[value]
+      else
+        throw new Error("No translation available for the #{key} #{value}")
 
 
   Object.keys(validUnits).forEach (unit) ->
