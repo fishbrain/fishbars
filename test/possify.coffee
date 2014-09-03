@@ -9,7 +9,7 @@ describe 'fishbars', ->
 
     beforeEach ->
       @template = "{{possify actor.name}} abc"
-      @func = (lang, actor, output) =>
+      @verify = (lang, actor, output) =>
         fishbars.registerHelpers(handlebars, {
           language: lang
         })
@@ -20,16 +20,16 @@ describe 'fishbars', ->
 
 
     it 'works in swedish for words that does not end with s', ->
-      @func('se', 'Jakob', "Jakobs abc")
+      @verify('se', 'Jakob', "Jakobs abc")
 
     it 'works in english for words that does not end with s', ->
-      @func('en', 'Jakob', "Jakob's abc")
+      @verify('en', 'Jakob', "Jakob's abc")
 
     it 'works in swedish for words that ends with s', ->
-      @func('se', 'Jens', "Jens' abc")
+      @verify('se', 'Jens', "Jens abc")
 
     it 'works in english for words that ends with s', ->
-      @func('en', 'Jens', "Jens abc")
+      @verify('en', 'Jens', "Jens' abc")
 
     it 'yields an error if there is no language', ->
       fishbars.registerHelpers(handlebars, {

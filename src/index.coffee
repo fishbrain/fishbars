@@ -66,9 +66,9 @@ exports.registerHelpers = (handlebars, settings = {}) ->
 
     output = switch settings.language
       when "se"
-        if lastLetter == 's' then name + "'" else name + "s"
+        if lastLetter == 's' then name else name + "s"
       when "en"
-        if lastLetter == 's' then name else name + "'s"
+        if lastLetter == 's' then name + "'" else name + "'s"
       else
         throw new Error("Possify not available in the language #{settings.language}")
 
