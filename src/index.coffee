@@ -49,3 +49,14 @@ exports.registerHelpers = (handlebars, settings = {}) ->
       if !conversion?
         throw new Error("No valid #{unit} unit configured")
       return conversion.factor(amount).toFixed(conversion.fixedPoints) + " " + conversion.name
+
+  handlebars.registerHelper 'inWater', (waterName) ->
+    inString = settings.translations.in[settings.language]
+
+    if !inString?
+      throw new Error("No translation available for the string 'in' in the language #{settings.language}")
+
+    if waterName?
+      inString + " " + waterName
+    else
+      ""
