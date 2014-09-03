@@ -60,3 +60,16 @@ exports.registerHelpers = (handlebars, settings = {}) ->
       inString + " " + waterName
     else
       ""
+
+  handlebars.registerHelper 'possify', (name) ->
+    lastLetter = name?.slice(-1)?[0]
+
+    output = switch settings.language
+      when "se"
+        if lastLetter == 's' then name + "'" else name + "s"
+      when "en"
+        if lastLetter == 's' then name else name + "'s"
+      else
+        throw new Error("Possify not available in the language #{settings.language}")
+
+    new handlebars.SafeString(output)
