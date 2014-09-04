@@ -3,7 +3,7 @@ validUnits = {
     kg: { factor: ((x) -> x), name: 'kgs', fixedPoints: 1 }
     lb: { factor: ((x) -> x * 2.20462262), name: 'lbs', fixedPoints: 1 }
   length:
-    m: { factor: ((x) -> x), name: 'm', fixedPoints: 2 }
+    m: { factor: ((x) -> x * 100), name: 'cm', fixedPoints: 0 }
     ft: { factor: ((x) -> x * 3.2808399), name: 'ft', fixedPoints: 2 }
   temperature:
     C: { factor: ((x) -> x), name: 'C', fixedPoints: 0 }

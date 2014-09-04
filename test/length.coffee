@@ -9,25 +9,22 @@ describe 'fishbars', ->
 
     beforeEach ->
       @template = "{{length num}}"
-      @context = { num: 5 }
+      @verify = (unit, num, expectancy) ->
+        fishbars.registerHelpers(handlebars, {
+          units: length: unit
+        })
+        template = handlebars.compile(@template)
+        result = template({ num })
+        expect(result).to.eql expectancy
 
     it 'can convert to meters', ->
-      fishbars.registerHelpers(handlebars, {
-        units: length: 'm'
-      })
+      @verify('m', 5, '500 cm')
 
-      template = handlebars.compile(@template)
-      result = template(@context)
-      expect(result).to.eql '5.00 m'
+    it 'can convert to feet including decimals', ->
+      @verify('ft', 5, '16.40 ft') # TODO: Should be "196 3/4 in"
 
-    it 'can convert to feet', ->
-      fishbars.registerHelpers(handlebars, {
-        units: length: 'ft'
-      })
-
-      template = handlebars.compile(@template)
-      result = template(@context)
-      expect(result).to.eql '16.40 ft'
+    it 'can convert to feet without decimals', ->
+      @verify('ft', 5.03, '16.50 ft') # TODO: Should be "198 in"
 
     it 'throws if an invalid unit is given', ->
       f = -> fishbars.registerHelpers(handlebars, {
