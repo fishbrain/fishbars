@@ -9,25 +9,22 @@ describe 'fishbars', ->
 
     beforeEach ->
       @template = "{{weight num}}"
-      @context = { num: 5 }
+      @verify = (unit, num, expectancy) ->
+        fishbars.registerHelpers(handlebars, {
+          units: weight: unit
+        })
+        template = handlebars.compile(@template)
+        result = template({ num })
+        expect(result).to.eql expectancy
 
     it 'can convert to kilos', ->
-      fishbars.registerHelpers(handlebars, {
-        units: weight: 'kg'
-      })
+      @verify('kg', 5, '5.0 kgs')
 
-      template = handlebars.compile(@template)
-      result = template(@context)
-      expect(result).to.eql '5.0 kgs'
+    it 'can convert to pounds, without oz', ->
+      @verify('lb', 5, '11 lbs')
 
-    it 'can convert to pounds', ->
-      fishbars.registerHelpers(handlebars, {
-        units: weight: 'lb'
-      })
-
-      template = handlebars.compile(@template)
-      result = template(@context)
-      expect(result).to.eql '11.0 lbs'
+    it 'can convert to pounds, with oz', ->
+      @verify('lb', 2.01281614, '4 lbs 7 oz')
 
     it 'throws if an invalid unit is given', ->
       f = -> fishbars.registerHelpers(handlebars, {
@@ -39,5 +36,5 @@ describe 'fishbars', ->
       fishbars.registerHelpers(handlebars, {})
 
       template = handlebars.compile(@template)
-      f = => template(@context)
+      f = => template({ num: 5 })
       expect(f).to.throw "No valid weight unit configured"

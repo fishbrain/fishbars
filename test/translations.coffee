@@ -9,11 +9,11 @@ describe 'fishbars', ->
 
     beforeEach ->
       @template = "{{translate greet}} {{name}}"
-      @context = { name: 'jakob', greet: { se: 'hej', en: 'hi' } }
+      @context = { name: 'jakob', greet: { sv: 'hej', en: 'hi' } }
 
     it 'can translate to swedish', ->
       fishbars.registerHelpers(handlebars, {
-        language: 'se'
+        language: 'sv'
       })
 
       template = handlebars.compile(@template)

@@ -1,10 +1,31 @@
 validUnits = {
   weight:
     kg: { factor: ((x) -> x), name: 'kgs', fixedPoints: 1 }
-    lb: { factor: ((x) -> x * 2.20462262), name: 'lbs', fixedPoints: 1 }
+    lb: (x) ->
+      ounces = Math.round(x * 2.20462262 * 16)
+      poundPart = Math.floor(ounces / 16)
+      ouncePart = ounces - poundPart * 16
+
+      if ouncePart == 0
+        return "#{poundPart} lbs"
+      else
+        return "#{poundPart} lbs #{ouncePart} oz"
+
   length:
-    m: { factor: ((x) -> x), name: 'm', fixedPoints: 2 }
-    ft: { factor: ((x) -> x * 3.2808399), name: 'ft', fixedPoints: 2 }
+    m: { factor: ((x) -> x * 100), name: 'cm', fixedPoints: 0 }
+    ft: (x) ->
+      inches = x * 39.3700787
+      flooredInches = Math.floor(inches)
+      remainerInches = inches - flooredInches
+      fractionIndex = Math.round(remainerInches * 4)
+      fractions = {
+        0: ''
+        1: ' ¼'
+        2: ' ½'
+        3: ' ¾'
+      }
+      flooredInches + fractions[fractionIndex] + " in"
+
   temperature:
     C: { factor: ((x) -> x), name: 'C', fixedPoints: 0 }
     F: { factor: ((x) -> x * 9 / 5 + 32), name: 'F', fixedPoints: 0 }
@@ -48,4 +69,47 @@ exports.registerHelpers = (handlebars, settings = {}) ->
       conversion = validUnits[unit][units[unit]]
       if !conversion?
         throw new Error("No valid #{unit} unit configured")
-      return conversion.factor(amount).toFixed(conversion.fixedPoints) + " " + conversion.name
+      if typeof conversion == 'function'
+        conversion(amount)
+      else
+        return conversion.factor(amount).toFixed(conversion.fixedPoints) + " " + conversion.name
+
+  handlebars.registerHelper 'inWater', (waterName) ->
+    inString = settings.translations.in[settings.language]
+
+    if !inString?
+      throw new Error("No translation available for the string 'in' in the language #{settings.language}")
+
+    if waterName?
+      inString + " " + waterName
+    else
+      ""
+
+  handlebars.registerHelper 'possify', (name) ->
+    lastLetter = name?.slice(-1)?[0]
+
+    output = switch settings.language
+      when 'sv'
+        if lastLetter == 's' then name else name + "s"
+      when "en"
+        if lastLetter == 's' then name + "'" else name + "'s"
+      else
+        throw new Error("Possify not available in the language #{settings.language}")
+
+    new handlebars.SafeString(output)
+
+  handlebars.registerHelper 'catchTitle', (catchData) ->
+    hasWeight = catchData.weight >= 0
+    hasLength = catchData.length >= 0
+
+    if hasWeight && hasLength
+      template = "{{translate catch.species}} {{weight catch.weight}}, {{length catch.length}}"
+    else if hasWeight
+      template = "{{translate catch.species}} {{weight catch.weight}}"
+    else if hasLength
+      template = "{{translate catch.species}} {{length catch.length}}"
+    else
+      template = "{{translate catch.species}}"
+
+    template = handlebars.compile(template)
+    result = template({ catch: catchData })
