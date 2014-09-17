@@ -73,3 +73,19 @@ exports.registerHelpers = (handlebars, settings = {}) ->
         throw new Error("Possify not available in the language #{settings.language}")
 
     new handlebars.SafeString(output)
+
+  handlebars.registerHelper 'catchTitle', (catchData) ->
+    hasWeight = catchData.weight >= 0
+    hasLength = catchData.length >= 0
+
+    if hasWeight && hasLength
+      template = "{{translate catch.species}} {{weight catch.weight}}, {{length catch.length}}"
+    else if hasWeight
+      template = "{{translate catch.species}} {{weight catch.weight}}"
+    else if hasLength
+      template = "{{translate catch.species}} {{length catch.length}}"
+    else
+      template = "{{translate catch.species}}"
+
+    template = handlebars.compile(template)
+    result = template({ catch: catchData })
