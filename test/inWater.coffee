@@ -11,7 +11,7 @@ describe 'fishbars', ->
       @template = "Something something {{inWater water.name}}"
       @translations = {
         in: {
-          se: 'i'
+          sv: 'i'
           en: 'in'
         }
       }
@@ -19,7 +19,7 @@ describe 'fishbars', ->
     it 'works in swedish', ->
       fishbars.registerHelpers(handlebars, {
         translations: @translations
-        language: 'se'
+        language: 'sv'
       })
       template = handlebars.compile(@template)
       result = template({ water: name: 'dark' })

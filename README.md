@@ -20,11 +20,11 @@ Helpers for Handlebars templates used at FishBrain
     var fishbars = require("fishbars");
 
     fishbars.registerHelpers(handlebars, {
-      language: 'se'
+      language: 'sv'
     });
 
     var template = handlebars.compile("{{translate greeting}} {{name}}");
-    var result = template({ name: 'jakob', greeting: { se: 'hej', en: 'hi' } });
+    var result = template({ name: 'jakob', greeting: { sv: 'hej', en: 'hi' } });
 
     console.log(result); // hej jakob
 
@@ -61,7 +61,7 @@ The remaining four functions are used to convert a number (given in SI-units) to
 The full configuration would look like this:
 
     fishbars.registerHelpers(handlebars, {
-      language: 'se',
+      language: 'sv',
       units: {
         weight: 'kg',     // or 'lb'
         length: 'm',      // or 'ft'

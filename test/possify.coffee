@@ -20,13 +20,13 @@ describe 'fishbars', ->
 
 
     it 'works in swedish for words that does not end with s', ->
-      @verify('se', 'Jakob', "Jakobs abc")
+      @verify('sv', 'Jakob', "Jakobs abc")
 
     it 'works in english for words that does not end with s', ->
       @verify('en', 'Jakob', "Jakob's abc")
 
     it 'works in swedish for words that ends with s', ->
-      @verify('se', 'Jens', "Jens abc")
+      @verify('sv', 'Jens', "Jens abc")
 
     it 'works in english for words that ends with s', ->
       @verify('en', 'Jens', "Jens' abc")

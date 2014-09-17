@@ -65,7 +65,7 @@ exports.registerHelpers = (handlebars, settings = {}) ->
     lastLetter = name?.slice(-1)?[0]
 
     output = switch settings.language
-      when "se"
+      when 'sv'
         if lastLetter == 's' then name else name + "s"
       when "en"
         if lastLetter == 's' then name + "'" else name + "'s"
