@@ -15,7 +15,6 @@ describe 'fishbars', ->
         })
         template = handlebars.compile(@template)
         result = template({ actor: name: actor })
-        console.log "result", result
         expect(result).to.eql output
 
 
