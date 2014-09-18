@@ -100,20 +100,24 @@ exports.registerHelpers = (handlebars, settings = {}) ->
   handlebars.registerHelper 'maybe', (a, b) ->
     if a then b else ''
 
+  possifyTable = {
+    sv: (name) ->
+      lastLetter = name.slice(-1)[0]
+      if lastLetter == 's' then name else name + "s"
+    en: (name) ->
+      lastLetter = name.slice(-1)[0]
+      if lastLetter == 's' then name + "'" else name + "'s"
+  }
+
   handlebars.registerHelper 'possify', (name) ->
     if !name?
       return ""
 
-    lastLetter = name.slice(-1)[0]
+    possifyFunction = possifyTable[settings.language]
+    if !possifyFunction
+      throw new Error("Possify not available in the language #{settings.language}")
 
-    output = switch settings.language
-      when 'sv'
-        if lastLetter == 's' then name else name + "s"
-      when "en"
-        if lastLetter == 's' then name + "'" else name + "'s"
-      else
-        throw new Error("Possify not available in the language #{settings.language}")
-
+    output = possifyFunction(name)
     new handlebars.SafeString(output)
 
   handlebars.registerHelper 'catchTitle', (catchData) ->
