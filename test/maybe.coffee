@@ -5,10 +5,10 @@ fishbars = require jscov.cover('..', 'src', 'index')
 
 describe 'fishbars', ->
 
-  describe 'if', ->
+  describe 'maybe', ->
 
     beforeEach ->
-      @template = """Caught{{if water.name " in "}}{{water.name}}: Gädda"""
+      @template = """Caught{{maybe water.name " in "}}{{water.name}}: Gädda"""
 
     it 'works given an actual value', ->
       fishbars.registerHelpers(handlebars, {})
