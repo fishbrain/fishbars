@@ -77,7 +77,7 @@ exports.registerHelpers = (handlebars, settings = {}) ->
         return conversion.factor(amount).toFixed(conversion.fixedPoints) + " " + conversion.name
 
   handlebars.registerHelper 'inWater', (waterName) ->
-    inString = settings.translations.in[settings.language]
+    inString = settings.translations?.in?[settings.language]
 
     if !inString?
       throw new Error("No translation available for the string 'in' in the language #{settings.language}")
