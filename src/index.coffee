@@ -108,13 +108,13 @@ exports.registerHelpers = (handlebars, settings = {}) ->
     hasLength = catchData.length >= 0
 
     if hasWeight && hasLength
-      template = "{{translate catch.species}} {{weight catch.weight}}, {{length catch.length}}"
+      template = "{{local catch.species}} {{weight catch.weight}}, {{length catch.length}}"
     else if hasWeight
-      template = "{{translate catch.species}} {{weight catch.weight}}"
+      template = "{{local catch.species}} {{weight catch.weight}}"
     else if hasLength
-      template = "{{translate catch.species}} {{length catch.length}}"
+      template = "{{local catch.species}} {{length catch.length}}"
     else
-      template = "{{translate catch.species}}"
+      template = "{{local catch.species}}"
 
     template = handlebars.compile(template)
     result = template({ catch: catchData })
