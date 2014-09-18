@@ -87,6 +87,9 @@ exports.registerHelpers = (handlebars, settings = {}) ->
     else
       ""
 
+  handlebars.registerHelper 'if', (a, b) ->
+    if a then b else ''
+
   handlebars.registerHelper 'possify', (name) ->
     if !name?
       return ""
