@@ -1,6 +1,6 @@
 validUnits = {
   weight:
-    kg: { factor: ((x) -> x), name: 'kgs', fixedPoints: 1 }
+    kg: { factor: ((x) -> x), name: 'kg', fixedPoints: 1 }
     lb: (x) ->
       ounces = Math.round(x * 2.20462262 * 16)
       poundPart = Math.floor(ounces / 16)

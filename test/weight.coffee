@@ -18,7 +18,7 @@ describe 'fishbars', ->
         expect(result).to.eql expectancy
 
     it 'can convert to kilos', ->
-      @verify('kg', 5, '5.0 kgs')
+      @verify('kg', 5, '5.0 kg')
 
     it 'can convert to pounds, without oz', ->
       @verify('lb', 5, '11 lbs')
