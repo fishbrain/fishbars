@@ -88,7 +88,10 @@ exports.registerHelpers = (handlebars, settings = {}) ->
       ""
 
   handlebars.registerHelper 'possify', (name) ->
-    lastLetter = name?.slice(-1)?[0]
+    if !name?
+      return ""
+
+    lastLetter = name.slice(-1)[0]
 
     output = switch settings.language
       when 'sv'
