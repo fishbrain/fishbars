@@ -60,6 +60,8 @@ exports.registerHelpers = (handlebars, settings = {}) ->
 
       if obj[value]?
         obj[value]
+      else if obj['*']?
+        obj['*']
       else
         throw new Error("No translation available for the #{key} #{value}")
 
@@ -75,7 +77,7 @@ exports.registerHelpers = (handlebars, settings = {}) ->
         return conversion.factor(amount).toFixed(conversion.fixedPoints) + " " + conversion.name
 
   handlebars.registerHelper 'inWater', (waterName) ->
-    inString = settings.translations.in[settings.language]
+    inString = settings.translations?.in?[settings.language]
 
     if !inString?
       throw new Error("No translation available for the string 'in' in the language #{settings.language}")
@@ -85,8 +87,14 @@ exports.registerHelpers = (handlebars, settings = {}) ->
     else
       ""
 
+  handlebars.registerHelper 'maybe', (a, b) ->
+    if a then b else ''
+
   handlebars.registerHelper 'possify', (name) ->
-    lastLetter = name?.slice(-1)?[0]
+    if !name?
+      return ""
+
+    lastLetter = name.slice(-1)[0]
 
     output = switch settings.language
       when 'sv'
@@ -99,17 +107,17 @@ exports.registerHelpers = (handlebars, settings = {}) ->
     new handlebars.SafeString(output)
 
   handlebars.registerHelper 'catchTitle', (catchData) ->
-    hasWeight = catchData.weight >= 0
-    hasLength = catchData.length >= 0
+    hasWeight = catchData.weight > 0
+    hasLength = catchData.length > 0
 
     if hasWeight && hasLength
-      template = "{{translate catch.species}} {{weight catch.weight}}, {{length catch.length}}"
+      template = "{{local catch.species}} {{weight catch.weight}}, {{length catch.length}}"
     else if hasWeight
-      template = "{{translate catch.species}} {{weight catch.weight}}"
+      template = "{{local catch.species}} {{weight catch.weight}}"
     else if hasLength
-      template = "{{translate catch.species}} {{length catch.length}}"
+      template = "{{local catch.species}} {{length catch.length}}"
     else
-      template = "{{translate catch.species}}"
+      template = "{{local catch.species}}"
 
     template = handlebars.compile(template)
     result = template({ catch: catchData })

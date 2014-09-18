@@ -29,7 +29,16 @@ describe 'fishbars', ->
       result = template(@context)
       expect(result).to.eql 'hi jakob'
 
-    it 'throws if the requested language is not available', ->
+    it 'uses the *-language if the requested language is not available', ->
+      fishbars.registerHelpers(handlebars, {
+        language: 'dk'
+      })
+
+      template = handlebars.compile(@template)
+      result = template({ name: 'jakob', greet: { sv: 'hej', en: 'hi', '*': 'YO' } })
+      expect(result).to.eql 'YO jakob'
+
+    it 'throws if the requested language is not available and there is no fallback', ->
       fishbars.registerHelpers(handlebars, {
         language: 'dk'
       })

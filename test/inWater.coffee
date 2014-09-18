@@ -43,6 +43,23 @@ describe 'fishbars', ->
       result = template({ })
       expect(result).to.eql 'Something something '
 
+    it 'yields an error if there are no translations provided at all', ->
+      fishbars.registerHelpers(handlebars, {
+        language: 'en'
+      })
+      template = handlebars.compile(@template)
+      f = -> template({ })
+      expect(f).to.throw "No translation available for the string 'in' in the language en"
+
+    it 'yields an error if there is no translation for the word in', ->
+      fishbars.registerHelpers(handlebars, {
+        translations: {}
+        language: 'en'
+      })
+      template = handlebars.compile(@template)
+      f = -> template({ })
+      expect(f).to.throw "No translation available for the string 'in' in the language en"
+
     it 'yields an error if there is no language', ->
       fishbars.registerHelpers(handlebars, {
         translations: @translations
