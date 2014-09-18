@@ -36,6 +36,12 @@ validUnits = {
     'kn': { factor: ((x) -> x * 1.94384449), name: 'kn', fixedPoints: 1 }
 }
 
+localTranslations = {
+  catch:
+    sv: 'fångst'
+    en: 'catch'
+}
+
 translations = [
   key: 'country'
   method: 'local'
@@ -111,10 +117,13 @@ exports.registerHelpers = (handlebars, settings = {}) ->
     new handlebars.SafeString(output)
 
   handlebars.registerHelper 'catchTitle', (catchData) ->
-    hasWeight = catchData.weight > 0
-    hasLength = catchData.length > 0
+    hasWeight = catchData?.weight > 0
+    hasLength = catchData?.length > 0
+    hasSpecies = catchData?.species?
 
-    if hasWeight && hasLength
+    if !hasSpecies
+      template = "{{translate localTranslations.catch}}"
+    else if hasWeight && hasLength
       template = "{{local catch.species}} {{weight catch.weight}}, {{length catch.length}}"
     else if hasWeight
       template = "{{local catch.species}} {{weight catch.weight}}"
@@ -124,4 +133,7 @@ exports.registerHelpers = (handlebars, settings = {}) ->
       template = "{{local catch.species}}"
 
     template = handlebars.compile(template)
-    result = template({ catch: catchData })
+    result = template({
+      catch: catchData
+      localTranslations: localTranslations
+    })
