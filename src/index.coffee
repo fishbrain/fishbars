@@ -60,6 +60,8 @@ exports.registerHelpers = (handlebars, settings = {}) ->
 
       if obj[value]?
         obj[value]
+      else if obj['*']?
+        obj['*']
       else
         throw new Error("No translation available for the #{key} #{value}")
 
