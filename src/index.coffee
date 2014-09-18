@@ -36,6 +36,12 @@ validUnits = {
     'kn': { factor: ((x) -> x * 1.94384449), name: 'kn', fixedPoints: 1 }
 }
 
+localTranslations = {
+  catch:
+    sv: 'fångst'
+    en: 'catch'
+}
+
 translations = [
   key: 'country'
   method: 'local'
@@ -55,6 +61,10 @@ exports.registerHelpers = (handlebars, settings = {}) ->
   translations.forEach ({ key, method }) ->
     value = settings[key]
     handlebars.registerHelper method, (obj) ->
+
+      if !obj?
+        return ""
+
       if !value?
         throw new Error("No #{key} configured")
 
@@ -90,27 +100,34 @@ exports.registerHelpers = (handlebars, settings = {}) ->
   handlebars.registerHelper 'maybe', (a, b) ->
     if a then b else ''
 
+  possifyTable = {
+    sv: (name) ->
+      lastLetter = name.slice(-1)[0]
+      if lastLetter == 's' then name else name + "s"
+    en: (name) ->
+      lastLetter = name.slice(-1)[0]
+      if lastLetter == 's' then name + "'" else name + "'s"
+  }
+
   handlebars.registerHelper 'possify', (name) ->
     if !name?
       return ""
 
-    lastLetter = name.slice(-1)[0]
+    possifyFunction = possifyTable[settings.language]
+    if !possifyFunction
+      throw new Error("Possify not available in the language #{settings.language}")
 
-    output = switch settings.language
-      when 'sv'
-        if lastLetter == 's' then name else name + "s"
-      when "en"
-        if lastLetter == 's' then name + "'" else name + "'s"
-      else
-        throw new Error("Possify not available in the language #{settings.language}")
-
+    output = possifyFunction(name)
     new handlebars.SafeString(output)
 
   handlebars.registerHelper 'catchTitle', (catchData) ->
-    hasWeight = catchData.weight > 0
-    hasLength = catchData.length > 0
+    hasWeight = catchData?.weight > 0
+    hasLength = catchData?.length > 0
+    hasSpecies = catchData?.species?
 
-    if hasWeight && hasLength
+    if !hasSpecies
+      template = "{{translate localTranslations.catch}}"
+    else if hasWeight && hasLength
       template = "{{local catch.species}} {{weight catch.weight}}, {{length catch.length}}"
     else if hasWeight
       template = "{{local catch.species}} {{weight catch.weight}}"
@@ -120,4 +137,7 @@ exports.registerHelpers = (handlebars, settings = {}) ->
       template = "{{local catch.species}}"
 
     template = handlebars.compile(template)
-    result = template({ catch: catchData })
+    result = template({
+      catch: catchData
+      localTranslations: localTranslations
+    })
