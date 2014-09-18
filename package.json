@@ -1,6 +1,6 @@
 {
   "name": "fishbars",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Helpers for Handlebars templates used at FishBrain",
   "author": "FishBrain <support@fishbrain.com> (http://fishbrain.com)",
   "contributors": [
