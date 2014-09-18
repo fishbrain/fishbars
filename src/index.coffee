@@ -55,6 +55,10 @@ exports.registerHelpers = (handlebars, settings = {}) ->
   translations.forEach ({ key, method }) ->
     value = settings[key]
     handlebars.registerHelper method, (obj) ->
+
+      if !obj?
+        return ""
+
       if !value?
         throw new Error("No #{key} configured")
 

@@ -38,6 +38,15 @@ describe 'fishbars', ->
       result = template({ name: 'Jakob', holidayGreet: { us: 'Merry Christmas', uk: 'Happy Christmas', '*': 'No Christmas for you' } })
       expect(result).to.eql 'No Christmas for you Jakob'
 
+    it 'skips the localized part of string if there is no data to translate', ->
+      fishbars.registerHelpers(handlebars, {
+        country: 'dk'
+      })
+
+      template = handlebars.compile(@template)
+      result = template({ name: 'Jakob' })
+      expect(result).to.eql ' Jakob'
+
     it 'throws if the requested country is not available and there is no fallback', ->
       fishbars.registerHelpers(handlebars, {
         country: 'dk'
