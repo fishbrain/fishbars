@@ -104,8 +104,8 @@ exports.registerHelpers = (handlebars, settings = {}) ->
     new handlebars.SafeString(output)
 
   handlebars.registerHelper 'catchTitle', (catchData) ->
-    hasWeight = catchData.weight >= 0
-    hasLength = catchData.length >= 0
+    hasWeight = catchData.weight > 0
+    hasLength = catchData.length > 0
 
     if hasWeight && hasLength
       template = "{{local catch.species}} {{weight catch.weight}}, {{length catch.length}}"
