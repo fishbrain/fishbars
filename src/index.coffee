@@ -15,16 +15,16 @@ validUnits = {
     m: { factor: ((x) -> x * 100), name: 'cm', fixedPoints: 0 }
     ft: (x) ->
       inches = x * 39.3700787
-      flooredInches = Math.floor(inches)
-      remainerInches = inches - flooredInches
-      fractionIndex = Math.round(remainerInches * 4)
+      inchSlices = Math.round(inches * 4)
+      inchPart = Math.floor(inchSlices / 4)
+      remainderPart = inchSlices - inchPart * 4
       fractions = {
         0: ''
         1: ' ¼'
         2: ' ½'
         3: ' ¾'
       }
-      flooredInches + fractions[fractionIndex] + " in"
+      inchPart + fractions[remainderPart] + " in"
 
   temperature:
     C: { factor: ((x) -> x), name: 'C', fixedPoints: 0 }
