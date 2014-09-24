@@ -20,11 +20,11 @@ validUnits = {
       remainderPart = inchSlices - inchPart * 4
       fractions = {
         0: ''
-        1: ' ¼'
-        2: ' ½'
-        3: ' ¾'
+        1: '¼'
+        2: '½'
+        3: '¾'
       }
-      inchPart + fractions[remainderPart] + " in"
+      inchPart + fractions[remainderPart] + "''"
 
   temperature:
     C: { factor: ((x) -> x), name: 'C', fixedPoints: 0 }
@@ -82,7 +82,7 @@ exports.registerHelpers = (handlebars, settings = {}) ->
       if !conversion?
         throw new Error("No valid #{unit} unit configured")
       if typeof conversion == 'function'
-        conversion(amount)
+        new handlebars.SafeString(conversion(amount))
       else
         return conversion.factor(amount).toFixed(conversion.fixedPoints) + " " + conversion.name
 
