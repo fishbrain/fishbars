@@ -50,6 +50,12 @@ translations = [
   method: 'translate'
 ]
 
+parseSize = (size) ->
+  if !/^[\d]+x[\d]+$/.test(size)
+    throw new Error("Invalid image size")
+  [width, height] = size.split('x').map (v) -> parseInt(v, 10)
+  { width, height }
+
 exports.registerHelpers = (handlebars, settings = {}) ->
 
   units = settings.units || {}
@@ -99,13 +105,10 @@ exports.registerHelpers = (handlebars, settings = {}) ->
 
   handlebars.registerHelper 'image', (op, size, images) ->
 
-    if !/^[\d]+x[\d]+$/.test(size)
-      throw new Error("Invalid image size")
-
-    [reqWidth, reqHeight] = size.split('x').map (v) -> parseInt(v, 10)
+    reqSize = parseSize(size)
 
     parsedImages = (images || []).map (image) ->
-      [width, height] = image.size.split('x').map (v) -> parseInt(v, 10)
+      {width, height} = parseSize(image.size)
       url: image.url
       width: width
       height: height
@@ -115,13 +118,13 @@ exports.registerHelpers = (handlebars, settings = {}) ->
 
     if op == '>='
       filteredImages = sortedImages.filter (image) ->
-        image.width >= reqWidth && image.height >= reqHeight
+        image.width >= reqSize.width && image.height >= reqSize.height
       if filteredImages.length == 0
         return sortedImages.slice(-1)[0]?.url
       return filteredImages[0].url
     else if op == '=='
       filteredImages = sortedImages.filter (image) ->
-        image.width == reqWidth && image.height == reqHeight
+        image.width == reqSize.width && image.height == reqSize.height
       if filteredImages.length == 0
         return null
       return filteredImages[0].url
