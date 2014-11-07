@@ -97,6 +97,31 @@ exports.registerHelpers = (handlebars, settings = {}) ->
     else
       ""
 
+  handlebars.registerHelper 'image', (op, size, images) ->
+
+    if !/^[\d]+x[\d]+$/.test(size)
+      throw new Error("Invalid image size")
+
+    [reqWidth, reqHeight] = size.split('x').map (v) -> parseInt(v, 10)
+
+    parsedImages = (images || []).map (image) ->
+      [width, height] = image.size.split('x').map (v) -> parseInt(v, 10)
+      url: image.url
+      width: width
+      height: height
+      pixels: width * height
+
+    sortedImages = parsedImages.sort (a, b) -> a.pixels - b.pixels
+
+    if op == '>='
+      filteredImages = sortedImages.filter (image) ->
+        image.width >= reqWidth && image.height >= reqHeight
+      if filteredImages.length == 0
+        return sortedImages.slice(-1)[0]?.url
+      return filteredImages[0].url
+    else
+      throw new Error("Unsupported operator")
+
   handlebars.registerHelper 'maybe', (a, b) ->
     if a then b else ''
 
