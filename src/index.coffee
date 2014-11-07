@@ -126,7 +126,7 @@ exports.registerHelpers = (handlebars, settings = {}) ->
         return null
       return filteredImages[0].url
     else
-      throw new Error("Unsupported operator")
+      throw new Error("Unsupported operator '#{op}'")
 
   handlebars.registerHelper 'maybe', (a, b) ->
     if a then b else ''

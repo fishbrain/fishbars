@@ -54,7 +54,7 @@ describe 'fishbars', ->
     it 'throws an error if an unsupported operator is used', ->
       fishbars.registerHelpers(handlebars)
       f = -> handlebars.compile("{{image '>' '200x300' data.pics}}")()
-      expect(f).to.throw "Unsupported operator"
+      expect(f).to.throw "Unsupported operator '>'"
 
     it 'throws an error if an invalid image size is specified', ->
       fishbars.registerHelpers(handlebars)
