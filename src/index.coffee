@@ -119,6 +119,12 @@ exports.registerHelpers = (handlebars, settings = {}) ->
       if filteredImages.length == 0
         return sortedImages.slice(-1)[0]?.url
       return filteredImages[0].url
+    else if op == '=='
+      filteredImages = sortedImages.filter (image) ->
+        image.width == reqWidth && image.height == reqHeight
+      if filteredImages.length == 0
+        return null
+      return filteredImages[0].url
     else
       throw new Error("Unsupported operator")
 
