@@ -32,7 +32,28 @@ Helpers for Handlebars templates used at FishBrain
 
 ### Features
 
-There are five functions:
+There is one function independent of user settings:
+
+    image
+
+It take three arguments; a comparison operator, a size and an array of photos. It then returns the photo that satisfy the given given comparions. If more than one does, it selects the one that is closest to the requirement.
+
+    var template = handlebars.compile("{{image '>=' '64x64' photos }}");
+    var result = template({
+        photos: photos: [{
+            url: "file1.png",
+            size: "140x140"
+        }, {
+            url: "file2.png",
+            size: "600x600"
+        }]
+    });
+
+    console.log(result); // file1.png
+
+
+
+There are also five functions depending on user settings:
 
     translate
     weight
