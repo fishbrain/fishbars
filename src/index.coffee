@@ -24,7 +24,7 @@ validUnits = {
         2: '½'
         3: '¾'
       }
-      inchPart + fractions[remainderPart] + "''"
+      inchPart + fractions[remainderPart] + "″"
 
   temperature:
     C: { factor: ((x) -> x), name: 'C', fixedPoints: 0 }
