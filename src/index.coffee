@@ -52,7 +52,7 @@ translations = [
 
 parseSize = (size) ->
   if !/^[\d]+x[\d]+$/.test(size)
-    throw new Error("Invalid image size")
+    throw new Error("Invalid image size: use WIDTHxHEIGHT, e.g. 128x64")
   [width, height] = size.split('x').map (v) -> parseInt(v, 10)
   { width, height }
 

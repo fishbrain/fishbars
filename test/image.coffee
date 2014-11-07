@@ -59,7 +59,7 @@ describe 'fishbars', ->
     it 'throws an error if an invalid image size is specified', ->
       fishbars.registerHelpers(handlebars)
       f = -> handlebars.compile("{{image '>' '200300' data.pics}}")()
-      expect(f).to.throw "Invalid image size"
+      expect(f).to.throw "Invalid image size: use WIDTHxHEIGHT, e.g. 128x64"
 
     it 'returns empty string if there is no data', ->
       fishbars.registerHelpers(handlebars)
