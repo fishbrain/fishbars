@@ -149,7 +149,7 @@ exports.registerHelpers = (handlebars, settings = {}) ->
 
     possifyFunction = possifyTable[settings.language]
     if !possifyFunction
-      throw new Error("Possify not available in the language #{settings.language}")
+      return name
 
     output = possifyFunction(name)
     new handlebars.SafeString(output)

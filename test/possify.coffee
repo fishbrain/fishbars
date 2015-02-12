@@ -30,6 +30,9 @@ describe 'fishbars', ->
     it 'works in english for words that ends with s', ->
       @verify('en', 'Jens', "Jens' abc")
 
+    it 'defaults to just the name if the language is not implemented', ->
+      @verify('non-existing-language', 'Jakob', "Jakob abc")
+
     it 'outputs empty string if the input is non-existent', ->
       fishbars.registerHelpers(handlebars, {
         language: 'sv'
@@ -37,11 +40,3 @@ describe 'fishbars', ->
       template = handlebars.compile(@template)
       result = template({ })
       expect(result).to.eql ' abc'
-
-    it 'yields an error if there is no language', ->
-      fishbars.registerHelpers(handlebars, {
-        language: 'dk'
-      })
-      template = handlebars.compile(@template)
-      f = -> template({ actor: name: 'Jens' })
-      expect(f).to.throw "Possify not available in the language dk"
