@@ -39,7 +39,9 @@ validUnits = {
 localTranslations = {
   catch:
     sv: 'fångst'
-    en: 'catch'
+    en: 'fish'
+    ja: '魚'
+    es: 'pez'
 }
 
 translations = [
