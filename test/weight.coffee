@@ -18,13 +18,13 @@ describe 'fishbars', ->
         expect(result).to.eql expectancy
 
     it 'can convert to kilos', ->
-      @verify('kg', 5, '5.0 kg')
+      @verify('kg', 5, '5 kg')
 
     it 'can convert to pounds, without oz', ->
       @verify('lb', 5, '11 lbs')
 
     it 'can convert to pounds, with oz', ->
-      @verify('lb', 2.01281614, '4 lbs 7 oz')
+      @verify('lb', 2.01281614, '4.4 lbs')
 
     it 'throws if an invalid unit is given', ->
       f = -> fishbars.registerHelpers(handlebars, {

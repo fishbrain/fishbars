@@ -20,14 +20,23 @@ describe 'fishbars', ->
     it 'can convert to meters', ->
       @verify('m', 5, '500 cm')
 
-    it 'can convert to feet including decimals', ->
-      @verify('ft', 5, "196¾″")
+    it 'can convert to inches including decimals', ->
+      @verify('ft', 5, "196.9 in")
 
-    it 'can convert to feet without decimals', ->
-      @verify('ft', 5.03, "198″")
+    it 'can convert to inches without decimals', ->
+      @verify('ft', 5.03, "198 in")
 
-    it 'can convert to feet when rounding up from ¾ to a whole', ->
-      @verify('ft', 0.38, "15″")
+    it 'can convert zero correctly', ->
+      @verify('ft', 0, "0 in")
+
+    it 'can convert close to zero correctly', ->
+      @verify('ft', 0.00254, "0.1 in")
+
+    it 'can convert close to zero correctly', ->
+      @verify('ft', 0.000254, "0 in")
+
+    it 'can convert to inches when rounding up from ¾ to a whole', ->
+      @verify('ft', 0.38, "15 in")
 
     it 'throws if an invalid unit is given', ->
       f = -> fishbars.registerHelpers(handlebars, {
