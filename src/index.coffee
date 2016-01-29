@@ -1,30 +1,11 @@
 validUnits = {
   weight:
     kg: { factor: ((x) -> x), name: 'kg', fixedPoints: 1 }
-    lb: (x) ->
-      ounces = Math.round(x * 2.20462262 * 16)
-      poundPart = Math.floor(ounces / 16)
-      ouncePart = ounces - poundPart * 16
-
-      if ouncePart == 0
-        return "#{poundPart} lbs"
-      else
-        return "#{poundPart} lbs #{ouncePart} oz"
+    lb: { factor: ((x) -> x * 2.20462262), name: 'lbs', fixedPoints: 1 }
 
   length:
     m: { factor: ((x) -> x * 100), name: 'cm', fixedPoints: 0 }
-    ft: (x) ->
-      inches = x * 39.3700787
-      inchSlices = Math.round(inches * 4)
-      inchPart = Math.floor(inchSlices / 4)
-      remainderPart = inchSlices - inchPart * 4
-      fractions = {
-        0: ''
-        1: '¼'
-        2: '½'
-        3: '¾'
-      }
-      inchPart + fractions[remainderPart] + "″"
+    ft: { factor: ((x) -> x * 39.3700787), name: 'in', fixedPoints: 1 }
 
   temperature:
     C: { factor: ((x) -> x), name: 'C', fixedPoints: 0 }
@@ -92,7 +73,14 @@ exports.registerHelpers = (handlebars, settings = {}) ->
       if typeof conversion == 'function'
         new handlebars.SafeString(conversion(amount))
       else
-        return conversion.factor(amount).toFixed(conversion.fixedPoints) + " " + conversion.name
+        # Round with correct number of decimals. Also: 15.0 kg -> 15 kg
+        roundedWithDecimals = conversion.factor(amount).toFixed(conversion.fixedPoints)
+        firstDecimal = roundedWithDecimals.slice(-1)
+        rounded = if conversion.fixedPoints is 1 and firstDecimal is "0"
+          roundedWithDecimals.slice(0, roundedWithDecimals.length - 2)
+        else
+          roundedWithDecimals
+        return rounded + " " + conversion.name
 
   handlebars.registerHelper 'inWater', (waterName) ->
     inString = settings.translations?.in?[settings.language]

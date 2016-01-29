@@ -32,13 +32,13 @@ describe 'fishbars', ->
       verify({ species: { SE: 'Gädda', GB: 'Pike' } }, 'Pike')
 
     it 'produces name, length and weight if all are given', ->
-      verify({ species: { SE: 'Gädda', GB: 'Pike' }, weight: 1, length: 1 }, 'Pike 1.0 kg, 100 cm')
+      verify({ species: { SE: 'Gädda', GB: 'Pike' }, weight: 1, length: 1 }, 'Pike 1 kg, 100 cm')
 
     it 'produces name and length if no weight is given', ->
       verify({ species: { SE: 'Gädda', GB: 'Pike' }, length: 1 }, 'Pike 100 cm')
 
     it 'produces name and weight if no length is given', ->
-      verify({ species: { SE: 'Gädda', GB: 'Pike' }, weight: 1 }, 'Pike 1.0 kg')
+      verify({ species: { SE: 'Gädda', GB: 'Pike' }, weight: 1 }, 'Pike 1 kg')
 
 
   describe 'Swedish variations', ->
@@ -69,10 +69,10 @@ describe 'fishbars', ->
       verify({ species: { SE: 'Gädda', GB: 'Pike' } }, 'Gädda')
 
     it 'produces name, length and weight if all are given', ->
-      verify({ species: { SE: 'Gädda', GB: 'Pike' }, weight: 1, length: 1 }, 'Gädda 1.0 kg, 100 cm')
+      verify({ species: { SE: 'Gädda', GB: 'Pike' }, weight: 1, length: 1 }, 'Gädda 1 kg, 100 cm')
 
     it 'produces name and length if no weight is given', ->
       verify({ species: { SE: 'Gädda', GB: 'Pike' }, length: 1 }, 'Gädda 100 cm')
 
     it 'produces name and weight if no length is given', ->
-      verify({ species: { SE: 'Gädda', GB: 'Pike' }, weight: 1 }, 'Gädda 1.0 kg')
+      verify({ species: { SE: 'Gädda', GB: 'Pike' }, weight: 1 }, 'Gädda 1 kg')

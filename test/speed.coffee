@@ -18,7 +18,7 @@ describe 'fishbars', ->
 
       template = handlebars.compile(@template)
       result = template(@context)
-      expect(result).to.eql '5.0 m/s'
+      expect(result).to.eql '5 m/s'
 
     it 'can convert to km/h', ->
       fishbars.registerHelpers(handlebars, {
@@ -27,7 +27,7 @@ describe 'fishbars', ->
 
       template = handlebars.compile(@template)
       result = template(@context)
-      expect(result).to.eql '18.0 km/h'
+      expect(result).to.eql '18 km/h'
 
     it 'can convert to mph', ->
       fishbars.registerHelpers(handlebars, {
