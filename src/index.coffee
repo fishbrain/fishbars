@@ -152,7 +152,7 @@ exports.registerHelpers = (handlebars, settings = {}) ->
     if !hasSpecies
       template = "{{translate localTranslations.catch}}"
     else if hasWeight && hasLength
-      template = "{{local catch.species}} {{weight catch.weight}}, {{length catch.length}}"
+      template = "{{local catch.species}} {{weight catch.weight}} ({{length catch.length}})"
     else if hasWeight
       template = "{{local catch.species}} {{weight catch.weight}}"
     else if hasLength
